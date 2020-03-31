@@ -1,3 +1,5 @@
+package scanner;
+
 import activesupport.IllegalBrowserException;
 import activesupport.driver.Browser;
 import com.deque.axe.AXE;
@@ -24,6 +26,8 @@ public class AXEScanner {
 
     private JSONArray multi = null;
     private JSONArray violationsFound;
+
+    private String findings;
 
     public String getUrlsList() {
         return urlsList;
