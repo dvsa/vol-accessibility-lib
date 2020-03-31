@@ -6,10 +6,8 @@ import com.deque.axe.AXE;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -72,9 +70,6 @@ public class AXEScanner {
     }
 
     private static final URL scriptUrl = AXEScanner.class.getResource("/axe/axe.min.js");
-
-    File dir = new File("Reports");
-    File reportPath = new File(String.format(dir + "/" + "AXE" + "_%d" + ".html", Instant.now().getEpochSecond()));
 
     public AXEScanner() {
         if (getStandards() == null) {

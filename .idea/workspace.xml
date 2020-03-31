@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="92940113-d728-4366-a800-879b98c4e97f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/AXEScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scanner/AXEScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scanner/AXEScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scanner/AXEScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scanner/ReportGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scanner/ReportGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scanner/AXEScanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scanner/AXEScanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/dependency-check-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/dependency-check-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +21,13 @@
   <component name="DefaultGradleProjectSettings">
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,11 +55,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="scanner" />
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -68,5 +81,9 @@
       <screen x="0" y="23" width="1680" height="947" />
     </state>
     <state x="100" y="100" width="1480" height="850" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.23.1680.947@0.23.1680.947" timestamp="1584358919108" />
+    <state x="548" y="144" key="refactoring.ChangeSignatureDialog" timestamp="1585670827870">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="548" y="144" key="refactoring.ChangeSignatureDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1585670827870" />
   </component>
 </project>

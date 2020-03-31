@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 
 public class ReportGenerator {
 
-    AXEScanner scanner = new AXEScanner();
     MustacheFactory mf = new DefaultMustacheFactory();
 
     private String violations;
@@ -30,21 +29,21 @@ public class ReportGenerator {
     private static File tempCompleteDetailsWithPercentFile = new File("tempCompleteDetailsWithPercent.html");
 
     public void urlScannedReportSection(String scanURL) throws IOException {
-        Mustache mustache = mf.compile("src/main/resources/scanned_urls.mustache");
+        Mustache mustache = mf.compile("scanned_urls.mustache");
         mustache.execute(new FileWriter(temp, true),
                 new MustacheSettings(null, scanURL)).flush();
     }
 
-    public void violationDetailsReportSection(String scanURL) throws IOException {
+    public void violationDetailsReportSection(String scanURL, AXEScanner scanner) throws IOException {
         File violationTemp = new File("violations.txt");
-        Mustache mustache = mf.compile("src/main/resources/violations.mustache");
-        Scanner sc1 = new Scanner(scanner.axeFindings());
-        while (sc1.hasNext()) {
-            this.violations = String.valueOf((sc1.nextLine()));
+        Mustache mustache = mf.compile("violations.mustache");
+        Scanner textScanner = new Scanner(scanner.axeFindings());
+        while (textScanner.hasNext()) {
+            this.violations = String.valueOf((textScanner.nextLine()));
             mustache.execute(new FileWriter(violationTemp, true),
                     new MustacheSettings(violations, null)).flush();
         }
-        sc1.close();
+        textScanner.close();
 
         String details = readLineByLineJava8("src/main/resources/violations.html");
         String detailsRegex = "violations";
@@ -81,7 +80,7 @@ public class ReportGenerator {
         }
     }
 
-    public void createReport() throws IOException {
+    public void createReport(AXEScanner scanner) throws IOException {
         File urls = new File("urls.txt");
         File totalComp = new File("totalComp.txt");
 
@@ -92,6 +91,7 @@ public class ReportGenerator {
         BufferedWriter writer = new BufferedWriter(new FileWriter(urls, false));
         writer.append(index);
         writer.flush();
+        temp.delete();
 
         String totalCompPercent = readLineByLineJava8("urls.txt");
         String percentRegex = "totalComp";
@@ -115,7 +115,6 @@ public class ReportGenerator {
             urls.delete();
             totalComp.delete();
             tempCompleteDetailsWithPercentFile.delete();
-            temp.delete();
         }
     }
 

@@ -1,1 +1,5 @@
 scanner/AXEScanner.class
+scanner/MustacheSettings$ScannedURL.class
+scanner/ReportGenerator.class
+scanner/MustacheSettings$Issue.class
+scanner/MustacheSettings.class
