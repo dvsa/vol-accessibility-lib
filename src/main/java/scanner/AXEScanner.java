@@ -99,7 +99,7 @@ public class AXEScanner {
         }
     }
 
-    public String axeFindings() throws IOException {
-       return AXE.report((multi));
+    public String axeFindings() {
+        return AXE.report((multi));
     }
 }

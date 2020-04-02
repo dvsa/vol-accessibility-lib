@@ -3,16 +3,15 @@ package scanner;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import org.apache.commons.io.FileUtils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -45,9 +44,9 @@ public class ReportGenerator {
         }
         textScanner.close();
 
-        String details = readLineByLineJava8("src/main/resources/violations.html");
+        String details = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("violations.html"));
         String detailsRegex = "violations";
-        violationDetails = details.replace(detailsRegex, readLineByLineJava8("violations.txt"));
+        violationDetails = details.replace(detailsRegex, readLines("violations.txt"));
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempDetailsFile, true));
         writer.append(violationDetails);
@@ -55,8 +54,7 @@ public class ReportGenerator {
         writer.close();
         violationTemp.delete();
 
-
-        String scannedURLs = readLineByLineJava8("details.html");
+        String scannedURLs = readLines("details.html");
         String urlRegex = "urlScanned";
         String completeDetails = scannedURLs.replace(urlRegex, scanURL);
 
@@ -65,7 +63,7 @@ public class ReportGenerator {
         tempWriter.flush();
         tempWriter.close();
 
-        String complianceSectionPercent = readLineByLineJava8("tempCompleteDetails.html");
+        String complianceSectionPercent = readLines("tempCompleteDetails.html");
         String percentRegex = "sectionComp";
         String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getNumberOfViolationsFoundPerPage())));
 
@@ -80,20 +78,20 @@ public class ReportGenerator {
         }
     }
 
-    public void createReport(AXEScanner scanner) throws IOException {
+    public void createReport(AXEScanner scanner) throws IOException, URISyntaxException {
         File urls = new File("urls.txt");
         File totalComp = new File("totalComp.txt");
 
-        String urlList = readLineByLineJava8("src/main/resources/index.html");
+        String urlList = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("index.html"));
         String urlRegex = "urlList";
-        String index = urlList.replace(urlRegex, readLineByLineJava8("urlScanned.txt"));
+        String index = urlList.replace(urlRegex, readLines("urlScanned.txt"));
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(urls, false));
         writer.append(index);
         writer.flush();
         temp.delete();
 
-        String totalCompPercent = readLineByLineJava8("urls.txt");
+        String totalCompPercent = readLines("urls.txt");
         String percentRegex = "totalComp";
         String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount())));
 
@@ -101,15 +99,16 @@ public class ReportGenerator {
         writer.append(totalCompPer);
         writer.flush();
 
-        String details = readLineByLineJava8("totalComp.txt");
+        String details = readLines("totalComp.txt");
         String detailRegex = "violation_details";
-        String detailsOfViolations = details.replace(detailRegex, readLineByLineJava8("tempCompleteDetailsWithPercent.html"));
+        String detailsOfViolations = details.replace(detailRegex, readLines("tempCompleteDetailsWithPercent.html"));
 
-        writer = new BufferedWriter(new FileWriter(createDirectories() + "/" + String.valueOf(Instant.now().getEpochSecond()).concat("index.html"), true));
+        createDirectory();
+        copyFromJar("/public/", Paths.get("Reports/public/"));
+
+        writer = new BufferedWriter(new FileWriter(  "Reports/" + String.valueOf(Instant.now().getEpochSecond()).concat("index.html"), true));
         writer.append(detailsOfViolations);
         writer.close();
-
-        copyDirectory();
 
         if (urls.exists() && (totalComp.exists())) {
             urls.delete();
@@ -118,22 +117,56 @@ public class ReportGenerator {
         }
     }
 
-    public File createDirectories() throws IOException {
-        File directory = new File("Reports/");
-        FileUtils.forceMkdir(directory);
-        return directory;
+    private File createDirectory() {
+        File file = new File("Reports");
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        return file;
     }
 
-    public void copyDirectory() throws IOException {
-        File sourceLocation = new File("src/main/resources/public");
-        File targetLocation = new File("Reports/public");
+    private void copyFromJar(String source, final Path target) throws URISyntaxException, IOException {
+        URI resource = getClass().getResource("").toURI();
+        FileSystem fileSystem = FileSystems.newFileSystem(
+                resource,
+                Collections.<String, String>emptyMap()
+        );
 
-        FileUtils.copyDirectory(sourceLocation, targetLocation);
+        final Path jarPath = fileSystem.getPath(source);
+
+        Files.walkFileTree(jarPath, new SimpleFileVisitor<Path>() {
+
+            private Path currentTarget;
+
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                currentTarget = target.resolve(jarPath.relativize(dir).toString());
+                Files.createDirectories(currentTarget);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.copy(file, target.resolve(jarPath.relativize(file).toString()), StandardCopyOption.REPLACE_EXISTING);
+                return FileVisitResult.CONTINUE;
+            }
+
+        });
     }
 
-    private static String readLineByLineJava8(String filePath) {
+    private static String readLinesAsInputStream(InputStream inputStream) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        while (reader.ready()) {
+            String line = reader.readLine();
+            contentBuilder.append(line).append("\n");
+        }
+        return contentBuilder.toString();
+    }
+
+    private static String readLines(String filePath) {
+        StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s).append("\n"));
         } catch (IOException e) {

@@ -3,12 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="92940113-d728-4366-a800-879b98c4e97f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scanner/AXEScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scanner/AXEScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scanner/ReportGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scanner/ReportGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scanner/AXEScanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scanner/AXEScanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/javascripts/all.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/javascripts/application.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/javascripts/jquery-1.11.3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/stylesheets/application.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/accessibility-library-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/accessibility-library-1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scanner/ReportGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scanner/ReportGenerator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/dependency-check-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/dependency-check-report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +61,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources/Reports" />
+      <recent name="$PROJECT_DIR$/Results" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="scanner" />
       <recent name="" />
@@ -77,13 +90,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="100" y="100" width="1480" height="850" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1584358919108">
-      <screen x="0" y="23" width="1680" height="947" />
-    </state>
-    <state x="100" y="100" width="1480" height="850" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.23.1680.947@0.23.1680.947" timestamp="1584358919108" />
-    <state x="548" y="144" key="refactoring.ChangeSignatureDialog" timestamp="1585670827870">
+    <state x="378" y="187" key="Maven.ArtifactSearchDialog" timestamp="1585849405025">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="548" y="144" key="refactoring.ChangeSignatureDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1585670827870" />
+    <state x="378" y="187" key="Maven.ArtifactSearchDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1585849405025" />
+    <state x="100" y="4" width="1480" height="1046" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1585846146534">
+      <screen x="0" y="23" width="1680" height="947" />
+    </state>
+    <state x="100" y="4" width="1480" height="1046" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1680.947@0.23.1680.947" timestamp="1585846146534" />
+    <state x="100" y="0" width="1480" height="1050" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1585843810896">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="100" y="0" width="1480" height="1050" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1585843810896" />
+    <state x="100" y="0" width="1480" height="1050" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.23.1680.947@0.23.1680.947" timestamp="1585842568711" />
+    <state x="548" y="144" key="refactoring.ChangeSignatureDialog" timestamp="1585842351354">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="548" y="144" key="refactoring.ChangeSignatureDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1585842351354" />
   </component>
 </project>
