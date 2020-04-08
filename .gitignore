@@ -1,2 +1,4 @@
-/.idea/
+/.idea
 /target
+/accessibility-library.iml
+git rm -r --cached .
