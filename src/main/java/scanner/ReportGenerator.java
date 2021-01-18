@@ -19,13 +19,12 @@ public class ReportGenerator {
 
     MustacheFactory mf = new DefaultMustacheFactory();
 
-    private String violations;
-    private String violationDetails;
+    private static final String userDirectory = System.getProperty("user.dir");
 
-    private static File temp = new File("urlScanned.txt");
-    private static File tempDetailsFile = new File("details.html");
-    private static File tempCompleteDetailsFile = new File("tempCompleteDetails.html");
-    private static File tempCompleteDetailsWithPercentFile = new File("tempCompleteDetailsWithPercent.html");
+    private static final File temp = new File(userDirectory.concat("target/urlScanned.txt"));
+    private static final File tempDetailsFile = new File(userDirectory.concat("target/details.html"));
+    private static final File tempCompleteDetailsFile = new File(userDirectory.concat("target/tempCompleteDetails.html"));
+    private static final File tempCompleteDetailsWithPercentFile = new File(userDirectory.concat("target/tempCompleteDetailsWithPercent.html"));
 
     public void urlScannedReportSection(String scanURL) throws IOException {
         Mustache mustache = mf.compile("scanned_urls.mustache");
@@ -34,43 +33,46 @@ public class ReportGenerator {
     }
 
     public void violationDetailsReportSection(String scanURL, AXEScanner scanner) throws IOException {
-        File violationTemp = new File("violations.txt");
+        File violationTemp = new File(userDirectory.concat("target/violations.txt"));
         Mustache mustache = mf.compile("violations.mustache");
         Scanner textScanner = new Scanner(scanner.axeFindings());
         while (textScanner.hasNext()) {
-            this.violations = String.valueOf((textScanner.nextLine()));
+            String violations = String.valueOf((textScanner.nextLine()));
             mustache.execute(new FileWriter(violationTemp, true),
                     new MustacheSettings(violations, null)).flush();
         }
         textScanner.close();
+        try {
+            String details = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("violations.html"));
+            String detailsRegex = "violations";
+            String violationDetails = details.replace(detailsRegex, readLines(userDirectory.concat("target/violations.txt")));
 
-        String details = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("violations.html"));
-        String detailsRegex = "violations";
-        violationDetails = details.replace(detailsRegex, readLines("violations.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempDetailsFile, true));
+            writer.append(violationDetails);
+            writer.flush();
+            writer.close();
+            violationTemp.delete();
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempDetailsFile, true));
-        writer.append(violationDetails);
-        writer.flush();
-        writer.close();
-        violationTemp.delete();
+            String scannedURLs = readLines(userDirectory.concat("target/details.html"));
+            String urlRegex = "urlScanned";
+            String completeDetails = scannedURLs.replace(urlRegex, scanURL);
 
-        String scannedURLs = readLines("details.html");
-        String urlRegex = "urlScanned";
-        String completeDetails = scannedURLs.replace(urlRegex, scanURL);
+            BufferedWriter tempWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsFile, true));
+            tempWriter.append(completeDetails);
+            tempWriter.flush();
+            tempWriter.close();
 
-        BufferedWriter tempWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsFile, true));
-        tempWriter.append(completeDetails);
-        tempWriter.flush();
-        tempWriter.close();
+            String complianceSectionPercent = readLines(userDirectory.concat("target/tempCompleteDetails.html"));
+            String percentRegex = "sectionComp";
+            String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getNumberOfViolationsFoundPerPage())));
+            BufferedWriter tempDetailsWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsWithPercentFile, true));
+            tempDetailsWriter.append(sectionComp);
+            tempDetailsWriter.flush();
+            tempDetailsWriter.close();
 
-        String complianceSectionPercent = readLines("tempCompleteDetails.html");
-        String percentRegex = "sectionComp";
-        String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getNumberOfViolationsFoundPerPage())));
-
-        BufferedWriter tempDetailsWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsWithPercentFile, true));
-        tempDetailsWriter.append(sectionComp);
-        tempDetailsWriter.flush();
-        tempDetailsWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (tempDetailsFile.exists() && (tempCompleteDetailsFile.exists())) {
             tempDetailsFile.delete();
@@ -79,50 +81,53 @@ public class ReportGenerator {
     }
 
     public void createReport(AXEScanner scanner) throws IOException, URISyntaxException {
-        File urls = new File("urls.txt");
-        File totalComp = new File("totalComp.txt");
+        try {
+            File urls = new File(userDirectory.concat("target/urls.txt"));
+            File totalComp = new File(userDirectory.concat("target/totalComp.txt"));
 
-        String urlList = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("index.html"));
-        String urlRegex = "urlList";
-        String index = urlList.replace(urlRegex, readLines("urlScanned.txt"));
+            String urlList = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("index.html"));
+            String urlRegex = "urlList";
+            String index = urlList.replace(urlRegex, readLines(userDirectory.concat("target/urlScanned.txt")));
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(urls, false));
-        writer.append(index);
-        writer.flush();
-        temp.delete();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(urls, false));
+            writer.append(index);
+            writer.flush();
+            temp.delete();
 
-        String totalCompPercent = readLines("urls.txt");
-        String percentRegex = "totalComp";
-        String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount())));
+            String totalCompPercent = readLines(userDirectory.concat("target/urls.txt"));
+            String percentRegex = "totalComp";
+            String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount())));
 
-        writer = new BufferedWriter(new FileWriter(totalComp, false));
-        writer.append(totalCompPer);
-        writer.flush();
+            writer = new BufferedWriter(new FileWriter(totalComp, false));
+            writer.append(totalCompPer);
+            writer.flush();
 
-        String details = readLines("totalComp.txt");
-        String detailRegex = "violation_details";
-        String detailsOfViolations = details.replace(detailRegex, readLines("tempCompleteDetailsWithPercent.html"));
+            String details = readLines("target/totalComp.txt");
+            String detailRegex = "violation_details";
+            String detailsOfViolations = details.replace(detailRegex, readLines(userDirectory.concat("target/tempCompleteDetailsWithPercent.html")));
 
-        createDirectory();
-        copyFromJar("/public/", Paths.get("Reports/public/"));
+            createDirectory();
+            copyFromJar("/public/", Paths.get("Reports/public/"));
 
-        writer = new BufferedWriter(new FileWriter(  "Reports/" + String.valueOf(Instant.now().getEpochSecond()).concat("index.html"), true));
-        writer.append(detailsOfViolations);
-        writer.close();
+            writer = new BufferedWriter(new FileWriter("Reports/" + String.valueOf(Instant.now().getEpochSecond()).concat("index.html"), true));
+            writer.append(detailsOfViolations);
+            writer.close();
 
-        if (urls.exists() && (totalComp.exists())) {
-            urls.delete();
-            totalComp.delete();
-            tempCompleteDetailsWithPercentFile.delete();
+            if (urls.exists() && (totalComp.exists())) {
+                urls.delete();
+                totalComp.delete();
+                tempCompleteDetailsWithPercentFile.delete();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private File createDirectory() {
+    private void createDirectory() {
         File file = new File("Reports");
         if (!file.exists()) {
             file.mkdir();
         }
-        return file;
     }
 
     private void copyFromJar(String source, final Path target) throws URISyntaxException, IOException {
@@ -136,11 +141,9 @@ public class ReportGenerator {
 
         Files.walkFileTree(jarPath, new SimpleFileVisitor<Path>() {
 
-            private Path currentTarget;
-
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                currentTarget = target.resolve(jarPath.relativize(dir).toString());
+                Path currentTarget = target.resolve(jarPath.relativize(dir).toString());
                 Files.createDirectories(currentTarget);
                 return FileVisitResult.CONTINUE;
             }
@@ -177,7 +180,6 @@ public class ReportGenerator {
 
     public int totalCompliancePercentage(int totalNumberOfViolation) {
         int nonAccessiblePercentage = totalNumberOfViolation * 100 / 100;
-        int accessiblePercentage = 100 - nonAccessiblePercentage;
-        return accessiblePercentage;
+        return 100 - nonAccessiblePercentage;
     }
 }
