@@ -102,7 +102,7 @@ public class ReportGenerator {
             writer.append(totalCompPer);
             writer.flush();
 
-            String details = readLines("/target/totalComp.txt");
+            String details = readLines(userDirectory.concat("/target/totalComp.txt"));
             String detailRegex = "violation_details";
             String detailsOfViolations = details.replace(detailRegex, readLines(userDirectory.concat("/target/tempCompleteDetailsWithPercent.html")));
 
