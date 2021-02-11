@@ -64,10 +64,11 @@ public class AXEScanner {
             setRules(new String[]{"accesskeys", "bypass", "focus-order-semantics", "region", "skip-link", "tabindex", "cat.color"});
         }
     }
-
     public void scan() throws IOException, IllegalBrowserException {
         AxeRunOptions runOptions = new AxeRunOptions();
         runOptions.setXPath(true);
+        runOptions.setResultTypes(Collections.singletonList("violations"));
+
         AxeBuilder axeResponse = new AxeBuilder().withOptions(runOptions)
                 .withTags(Arrays.asList(getStandards()))
                 .withRules(Arrays.asList(getRules()))
