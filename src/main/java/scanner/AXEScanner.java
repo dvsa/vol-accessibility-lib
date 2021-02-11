@@ -2,12 +2,18 @@ package scanner;
 
 import activesupport.IllegalBrowserException;
 import activesupport.driver.Browser;
-import com.deque.axe.AXE;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.deque.html.axecore.axeargs.AxeRunOptions;
+import com.deque.html.axecore.results.Results;
+import com.deque.html.axecore.results.Rule;
+import com.deque.html.axecore.selenium.AxeBuilder;
+import com.deque.html.axecore.selenium.AxeReporter;
+import net.sf.json.JSONArray;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,30 +23,17 @@ public class AXEScanner {
     private int totalViolationsCount;
     private int numberOfViolationsFoundPerPage;
 
-    private String standards = System.getProperty("standards.scan");
+    private String[] standards = new String[]{System.getProperty("standards.scan")};
     private String[] rules = new String[]{System.getProperty("rules.scan")};
 
-    private String urlsList;
-
     private JSONArray multi = null;
-    private JSONArray violationsFound;
 
-    private String findings;
 
-    public String getUrlsList() {
-        return urlsList;
-    }
-
-    public String setUrlsList(String urlsList) {
-        this.urlsList = urlsList;
-        return urlsList;
-    }
-
-    public String getStandards() {
+    public String[] getStandards() {
         return standards;
     }
 
-    public void setStandards(String standards) {
+    public void setStandards(String[] standards) {
         this.standards = standards;
     }
 
@@ -57,49 +50,41 @@ public class AXEScanner {
         return totalViolationsCount;
     }
 
-    public void setTotalViolationsCount(int totalViolationsCount) {
-        this.totalViolationsCount = totalViolationsCount;
-    }
 
     public int getNumberOfViolationsFoundPerPage() {
         return numberOfViolationsFoundPerPage;
-    }
-
-    public void setNumberOfViolationsFoundPerPage(int numberOfViolationsFoundPerPage) {
-        this.numberOfViolationsFoundPerPage = numberOfViolationsFoundPerPage;
     }
 
     private static final URL scriptUrl = AXEScanner.class.getResource("/axe/axe.min.js");
 
     public AXEScanner() {
         if (getStandards() == null) {
-            setStandards("wcag21aa");
+            setStandards(new String[]{"wcag2a", "wcag412", "wcag2aa"});
         }
         if (getRules().length == 0) {
-            setRules(new String[]{"accesskeys', 'bypass', 'focus-order-semantics', 'region', 'skip-link','tabindex'"});
+            setRules(new String[]{"accesskeys", "bypass", "focus-order-semantics", "region", "skip-link", "tabindex", "cat.color"});
         }
     }
 
     public void scan() throws IOException, IllegalBrowserException {
-        JSONObject axeResponse = new AXE.Builder(Browser.navigate(), scriptUrl)
-                .options("{runOnly:{type: 'tag', values:" + getStandards() + "}}")
-                .options("{runOnly:{type: 'rule', values:" + getRules() + "}}")
-                .exclude("#global-footer")
-                .options("{resultTypes:['violations']}")
-                .analyze();
+        AxeRunOptions runOptions = new AxeRunOptions();
+        runOptions.setXPath(true);
+        AxeBuilder axeResponse = new AxeBuilder().withOptions(runOptions)
+                .withTags(Arrays.asList(getStandards()))
+                .withRules(Arrays.asList(getRules()))
+                .exclude(Collections.singletonList("#global-footer"));
 
-        JSONArray violationsFound = axeResponse.getJSONArray("violations");
+        Results results = axeResponse.analyze(Browser.navigate());
+        List<Rule> violations = results.getViolations();
 
-        if (violationsFound.length() == 0) {
+        if (violations.size() == 0) {
             assertTrue(true, "No new issues found on page");
         } else {
-            numberOfViolationsFoundPerPage = violationsFound.length();
-            totalViolationsCount += violationsFound.length();
-            multi = violationsFound;
+            numberOfViolationsFoundPerPage = violations.size();
+            totalViolationsCount += violations.size();
+            multi = (JSONArray) violations;
         }
-    }
 
-    public String axeFindings() {
-        return AXE.report((multi));
+        AxeReporter.writeResultsToJsonFile(,results);
     }
 }
