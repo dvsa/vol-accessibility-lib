@@ -35,8 +35,7 @@ public class ReportGenerator {
     public void violationDetailsReportSection(String scanURL, AXEScanner scanner) throws IOException {
         File violationTemp = new File(userDirectory.concat("/target/violations.txt"));
         Mustache mustache = mf.compile("violations.mustache");
-        File axeFindings = new File("target/results/testAccessibilityResults");
-        Scanner textScanner = new Scanner(axeFindings);
+        Scanner textScanner = new Scanner(String.valueOf(AXEScanner.axeFindings));
         while (textScanner.hasNext()) {
             String violations = String.valueOf((textScanner.nextLine()));
             mustache.execute(new FileWriter(violationTemp, true),
