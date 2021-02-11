@@ -17,11 +17,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 public class AXEScanner {
 
     private int totalViolationsCount;
     private int numberOfViolationsFoundPerPage;
+
+    public static JSONArray scannerFindings;
 
     private String[] standards = new String[]{System.getProperty("standards.scan")};
     private String[] rules = new String[]{System.getProperty("rules.scan")};
@@ -55,8 +56,6 @@ public class AXEScanner {
         return numberOfViolationsFoundPerPage;
     }
 
-    private static final URL scriptUrl = AXEScanner.class.getResource("/axe/axe.min.js");
-
     public AXEScanner() {
         if (getStandards() == null) {
             setStandards(new String[]{"wcag2a", "wcag412", "wcag2aa"});
@@ -84,7 +83,6 @@ public class AXEScanner {
             totalViolationsCount += violations.size();
             multi = (JSONArray) violations;
         }
-
-        AxeReporter.writeResultsToJsonFile(,results);
+        AxeReporter.writeResultsToTextFile("target/results/testAccessibilityResults", results);
     }
 }
