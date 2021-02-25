@@ -11,8 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class ReportGenerator {
@@ -35,13 +34,15 @@ public class ReportGenerator {
     public void violationDetailsReportSection(String scanURL, AXEScanner scanner) throws IOException {
         File violationTemp = new File(userDirectory.concat("/target/violations.txt"));
         Mustache mustache = mf.compile("violations.mustache");
-        Scanner textScanner = new Scanner(scanner.axeFindings());
+
+        Scanner textScanner = new Scanner(scanner.axeFindings);
         while (textScanner.hasNext()) {
             String violations = String.valueOf((textScanner.nextLine()));
             mustache.execute(new FileWriter(violationTemp, true),
                     new MustacheSettings(violations, null)).flush();
         }
         textScanner.close();
+
         try {
             String details = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("violations.html"));
             String detailsRegex = "violations";
@@ -69,8 +70,8 @@ public class ReportGenerator {
             tempDetailsWriter.append(sectionComp);
             tempDetailsWriter.flush();
             tempDetailsWriter.close();
-
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
         }
 
