@@ -124,7 +124,6 @@ public class ReportGenerator {
             tempDetailsFile.delete();
             tempCompleteDetailsFile.delete();
         }
-
     }
 
     public void createReport(AXEScanner scanner) throws IOException, URISyntaxException {
