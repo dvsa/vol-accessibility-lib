@@ -25,41 +25,86 @@ public class ReportGenerator {
     private static final File tempCompleteDetailsFile = new File(userDirectory.concat("/target/tempCompleteDetails.html"));
     private static final File tempCompleteDetailsWithPercentFile = new File(userDirectory.concat("/target/tempCompleteDetailsWithPercent.html"));
 
+    private String executeTemplate(Mustache m, Map<String, Object> context) throws IOException {
+        StringWriter writer = new StringWriter();
+        m.execute(writer, context).flush();
+        return writer.toString();
+    }
+
     public void urlScannedReportSection(String scanURL) throws IOException {
         Mustache mustache = mf.compile("scanned_urls.mustache");
         mustache.execute(new FileWriter(temp, true),
-                new MustacheSettings(null, scanURL)).flush();
+                new MustacheSettings(null, scanURL, null)).flush();
     }
 
-    public void violationDetailsReportSection(String scanURL, AXEScanner scanner) throws IOException {
-        File violationTemp = new File(userDirectory.concat("/target/violations.txt"));
-        Mustache mustache = mf.compile("violations.mustache");
+    public String createImpactHTML(AXEScanner scanner) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        String impactStatus;
 
-        Scanner textScanner = new Scanner(scanner.axeFindings);
-        while (textScanner.hasNext()) {
-            String violations = String.valueOf((textScanner.nextLine()));
-            mustache.execute(new FileWriter(violationTemp, true),
-                    new MustacheSettings(violations, null)).flush();
+        Map<String, Object> context = new HashMap<>();
+        Mustache impactTemplate = mf.compile("tags.mustache");
+        List<MustacheSettings.Tags> tags;
+        for (String impact : scanner.impact) {
+            impactStatus = impact;
+            switch (impactStatus) {
+                case "critical":
+                    tags = Collections.singletonList(
+                            new MustacheSettings.Tags("critical", "red"));
+                    context.put("tags", tags);
+                    stringBuilder.append(executeTemplate(impactTemplate, context));
+                    break;
+                case "serious":
+                    tags = Collections.singletonList(
+                            new MustacheSettings.Tags("serious", "pink"));
+                    context.put("tags", tags);
+                    stringBuilder.append(executeTemplate(impactTemplate, context));
+                    break;
+                case "minor":
+                    tags = Collections.singletonList(
+                            new MustacheSettings.Tags("minor", "blue"));
+                    context.put("tags", tags);
+                    stringBuilder.append(executeTemplate(impactTemplate, context));
+                    break;
+                case "review":
+                    tags = Collections.singletonList(
+                            new MustacheSettings.Tags("review", "turquoise"));
+                    context.put("tags", tags);
+                    stringBuilder.append(executeTemplate(impactTemplate, context));
+                    break;
+            }
         }
-        textScanner.close();
+        return stringBuilder.toString();
+    }
 
+    public void violationsReportSectionHTML(String scanURL, AXEScanner scanner) throws IOException {
+        String tags = createImpactHTML(scanner);
+        Mustache violationsTemplate = mf.compile("violations.mustache");
+        MustacheSettings updateSections = new MustacheSettings(scanner.axeFindings, scanURL, scanner.findingsThatNeedReviewing);
+        StringWriter sectionWriter = new StringWriter();
+        violationsTemplate.execute(sectionWriter, updateSections).flush();
+        String html = sectionWriter.toString();
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempDetailsFile, true));
+        writer.append(html);
+        writer.flush();
+        writer.close();
         try {
-            String details = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("violations.html"));
-            String detailsRegex = "violations";
-            String violationDetails = details.replace(detailsRegex, readLines(userDirectory.concat("/target/violations.txt")));
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempDetailsFile, true));
-            writer.append(violationDetails);
-            writer.flush();
-            writer.close();
-            violationTemp.delete();
-
             String scannedURLs = readLines(userDirectory.concat("/target/details.html"));
-            String urlRegex = "urlScanned";
-            String completeDetails = scannedURLs.replace(urlRegex, scanURL);
-
             BufferedWriter tempWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsFile, true));
-            tempWriter.append(completeDetails);
+            String formattedText = null;
+            String[] placeHolderText = new String[]{"urlScanned", "tags"};
+            String replacementString;
+            for (String placeholder : placeHolderText) {
+                if (placeholder.equals("urlScanned")) {
+                    replacementString = scanURL;
+                    formattedText = scannedURLs.replace(placeholder, replacementString);
+                } else {
+                    replacementString = tags;
+                    if(formattedText != null){
+                       formattedText = formattedText.replace(placeholder, replacementString);
+                    }
+                }
+            }
+            tempWriter.append(formattedText);
             tempWriter.flush();
             tempWriter.close();
 
@@ -79,6 +124,7 @@ public class ReportGenerator {
             tempDetailsFile.delete();
             tempCompleteDetailsFile.delete();
         }
+
     }
 
     public void createReport(AXEScanner scanner) throws IOException, URISyntaxException {
