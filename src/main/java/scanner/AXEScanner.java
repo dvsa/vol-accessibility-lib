@@ -10,6 +10,7 @@ import com.deque.html.axecore.selenium.AxeBuilder;
 import com.deque.html.axecore.selenium.AxeReporter;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,16 +19,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AXEScanner {
 
-    private static final String userDirectory = System.getProperty("user.dir");
-
     public String axeFindings;
     public String findingsThatNeedReviewing;
 
     private int totalViolationsCount;
     private int numberOfViolationsFoundPerPage;
 
-    private List<String> tags = Arrays.asList(System.getProperty("standards.scan"));
+    private List<String> tags = Collections.singletonList(System.getProperty("standards.scan"));
     private List<String> rules = Collections.singletonList(System.getProperty("rules.scan"));
+    public List<String> impact = new ArrayList<>();
 
 
     public int getTotalViolationsCount() {
@@ -82,11 +82,20 @@ public class AXEScanner {
             numberOfViolationsFoundPerPage = violations.size();
             totalViolationsCount += violations.size();
         }
-
         List<List<Rule>> multiList = Arrays.asList(violations, inapplicable);
         for (List<Rule> ruleList : multiList) {
-            AxeReporter.getReadableAxeResults("violations", Browser.navigate(), ruleList);
+            for (Rule rule : ruleList) {
+                if (!rule.getImpact().equals("")) {
+                    AxeReporter.getReadableAxeResults("VIOLATIONS", Browser.navigate(), ruleList);
+                    axeFindings = AxeReporter.getAxeResultString();
+                    impact.add(rule.getImpact());
+                } else {
+                    rule.setImpact("review");
+                    impact.add("review");
+                    AxeReporter.getReadableAxeResults("PLEASE REVIEW", Browser.navigate(), ruleList);
+                    findingsThatNeedReviewing = AxeReporter.getAxeResultString();
+                }
+            }
         }
-        axeFindings = AxeReporter.getAxeResultString();
     }
 }

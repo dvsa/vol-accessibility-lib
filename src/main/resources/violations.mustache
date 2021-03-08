@@ -1,3 +1,78 @@
-{{#issues}}
-    <br>{{violations}}
-{{/issues}}
+<div class="govuk-grid-column-full govuk-!-margin-top-6">
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full govuk-grid-column-two-thirds-from-desktop">
+            <div class="accessibility-page__block top">
+                <div class="accessibility-page__block__number">
+                    <p>Website</p>
+                </div>
+
+                <p class="govuk-body">
+                    urlScanned
+                </p>
+
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-4">
+                    Result explanation
+                </h3>
+
+                <p class="govuk-body">
+                    <b>This web page is sectionComp% compliant</b>
+                </p>
+
+                <div class="govuk-accordion govuk-!-margin-top-6" data-module="govuk-accordion" id="accordion-default">
+                    <div class="govuk-accordion__controls">
+                        <button type="button" class="govuk-accordion__open-all" aria-expanded="false"><span
+                                class="govuk-visually-hidden"> sections</span></button>
+                    </div>
+                    <div class="govuk-accordion__section">
+                        <div class="govuk-accordion__section-header">
+                            <h2 class="govuk-accordion__section-heading">
+
+                                <button type="button" id="accordion-default-heading-1"
+                                        aria-controls="accordion-default-content-1"
+                                        class="govuk-accordion__section-button"
+                                        aria-describedby="accordion-default-summary-1" aria-expanded="false">
+                                    WCAG 2 AA results
+                                </button>
+                                <span class="govuk-accordion__icon" aria-hidden="true"></span></h2>
+                            <div class="govuk-accordion__section-summary govuk-body"
+                                 id="accordion-with-summary-sections-summary-1">
+                                Use the accordion to view accessibility findings.
+                            </div>
+                        </div>
+                        <div id="accordion-default-content-1"
+                             class="govuk-accordion__section-content govuk-!-padding-bottom-6"
+                             aria-labelledby="accordion-default-heading-1">
+                             <p> Please see below the impact status of all the issues found. </p>
+                            tags
+                            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                            <p class="govuk-body">
+                                {{#issues}}
+                                {{violations}}
+                                {{/issues}}
+                            </p>
+                            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                            <br/>
+                            <p> The issues below require reviewing to determine if they are issues that need looking into.</p>
+                            <p class="govuk-body">
+                                {{#issues}}
+                                {{reviews}}
+                                {{/issues}}
+                            </p>
+                            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div aria-hidden="true" class="govuk-grid-column-full govuk-grid-column-one-third-from-desktop">
+            <div class="accessibility-page__block start">
+                <div class="semi-circle" data-value="sectionComp">
+                    <div class="arc"></div>
+                </div>
+                <p class="govuk-body semi-circle-text">Compliance overall</p>
+            </div>
+        </div>
+    </div>
+</div>
