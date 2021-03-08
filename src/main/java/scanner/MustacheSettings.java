@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MustacheSettings {
@@ -19,24 +20,6 @@ public class MustacheSettings {
         this.urlsScanned = urlsScanned;
         this.violations = violations;
         this.reviews = reviews;
-        this.colour = getColour();
-        this.colour = getImpact();
-    }
-
-    public String getImpact() {
-        return impact;
-    }
-
-    public void setImpact(String impact) {
-        this.impact = impact;
-    }
-
-    public String getColour() {
-        return colour;
-    }
-
-    public void setColour(String colour) {
-        this.colour = colour;
     }
 
     List<Issue> issues() throws IOException {
@@ -50,8 +33,8 @@ public class MustacheSettings {
     }
 
     List<Tags> tags(){
-       return Arrays.asList(
-               new Tags(impact,colour));
+       return Collections.singletonList(
+               new Tags(impact, colour));
     }
 
     static class Issue {
@@ -78,5 +61,4 @@ public class MustacheSettings {
         }
         String urlsScanned;
     }
-
 }
