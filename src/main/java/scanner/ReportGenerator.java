@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class ReportGenerator {
-
+    Set<String> uniqueImpactString = new HashSet<>();
     MustacheFactory mf = new DefaultMustacheFactory();
 
     private static final String userDirectory = System.getProperty("user.dir");
@@ -26,9 +26,11 @@ public class ReportGenerator {
     private static final File tempCompleteDetailsWithPercentFile = new File(userDirectory.concat("/target/tempCompleteDetailsWithPercent.html"));
 
     private String executeTemplate(Mustache m, Map<String, Object> context) throws IOException {
+        String impact;
         StringWriter writer = new StringWriter();
         m.execute(writer, context).flush();
-        return writer.toString();
+        impact = readLinesAndRemoveDuplicate(writer.toString());
+        return impact;
     }
 
     public void urlScannedReportSection(String scanURL) throws IOException {
@@ -77,7 +79,11 @@ public class ReportGenerator {
     }
 
     public void violationsReportSectionHTML(String scanURL, AXEScanner scanner) throws IOException {
-        String tags = createImpactHTML(scanner);
+        StringBuilder tags = new StringBuilder();
+        createImpactHTML(scanner);
+        for(String impact : uniqueImpactString){
+            tags.append(impact);
+        }
         Mustache violationsTemplate = mf.compile("violations.mustache");
         MustacheSettings updateSections = new MustacheSettings(scanner.axeFindings, scanURL, scanner.findingsThatNeedReviewing);
         StringWriter sectionWriter = new StringWriter();
@@ -98,10 +104,9 @@ public class ReportGenerator {
                     replacementString = scanURL;
                     formattedText = scannedURLs.replace(placeholder, replacementString);
                 } else {
-                    replacementString = tags;
-                    if(formattedText != null){
-                       formattedText = formattedText.replace(placeholder, replacementString);
-                    }
+                    replacementString = tags.toString();
+                    assert formattedText != null;
+                    formattedText = formattedText.replace(placeholder, replacementString);
                 }
             }
             tempWriter.append(formattedText);
@@ -124,6 +129,7 @@ public class ReportGenerator {
             tempDetailsFile.delete();
             tempCompleteDetailsFile.delete();
         }
+
     }
 
     public void createReport(AXEScanner scanner) throws IOException, URISyntaxException {
@@ -205,7 +211,6 @@ public class ReportGenerator {
 
     private static String readLinesAsInputStream(InputStream inputStream) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         while (reader.ready()) {
             String line = reader.readLine();
@@ -222,6 +227,11 @@ public class ReportGenerator {
             e.printStackTrace();
         }
         return contentBuilder.toString();
+    }
+
+    private String readLinesAndRemoveDuplicate(String content) {
+        uniqueImpactString.add(content);
+        return uniqueImpactString.toString();
     }
 
     public int totalCompliancePercentage(int totalNumberOfViolation) {
