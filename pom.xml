@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>accessibility-library</artifactId>
-    <version>2.0</version>
+    <version>2.1</version>
 
     <properties>
         <nexus.releases>https://nexus.olcs.dev-dvsacloud.uk/repository/maven-releases</nexus.releases>
@@ -14,11 +14,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <active-support.version>1.4.4.7</active-support.version>
-        <owasp-dependency-checker.version>6.0.1</owasp-dependency-checker.version>
         <axe-selenium-version>4.1.1</axe-selenium-version>
         <rules.scan>${rules}</rules.scan>
         <standards.scan>${standard}</standards.scan>
         <mustache.version>0.9.6</mustache.version>
+        <slf4j.version>2.12.1</slf4j.version>
+        <slf4j-log4j12.version>2.12.1</slf4j-log4j12.version>
     </properties>
 
     <repositories>
@@ -46,25 +47,20 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>${owasp-dependency-checker.version}</version>
-                <configuration>
-                    <failBuildOnCVSS>12</failBuildOnCVSS>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>active-support</artifactId>
@@ -106,5 +102,4 @@
             <url>${nexus.releases}</url>
         </repository>
     </distributionManagement>
-
 </project>

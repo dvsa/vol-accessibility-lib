@@ -8,6 +8,8 @@ import com.deque.html.axecore.results.Results;
 import com.deque.html.axecore.results.Rule;
 import com.deque.html.axecore.selenium.AxeBuilder;
 import com.deque.html.axecore.selenium.AxeReporter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class AXEScanner {
     private List<String> rules = Collections.singletonList(System.getProperty("rules.scan"));
     public List<String> impact = new ArrayList<>();
 
+    private static final Logger LOGGER = LogManager.getLogger(AXEScanner.class);
 
     public int getTotalViolationsCount() {
         return totalViolationsCount;
@@ -77,7 +80,7 @@ public class AXEScanner {
         List<Rule> violations = axeResponse.getViolations();
 
         if (violations.size() == 0) {
-            assertTrue(true, "No new issues found on page");
+            LOGGER.info("No issues found");
         } else {
             numberOfViolationsFoundPerPage = violations.size();
             totalViolationsCount += violations.size();
