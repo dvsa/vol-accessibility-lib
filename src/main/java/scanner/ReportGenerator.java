@@ -67,6 +67,12 @@ public class ReportGenerator {
                     context.put("tags", tags);
                     stringBuilder.append(executeTemplate(impactTemplate, context));
                     break;
+                case "moderate":
+                    tags = Collections.singletonList(
+                            new MustacheSettings.Tags("moderate", "purple"));
+                    context.put("tags", tags);
+                    stringBuilder.append(executeTemplate(impactTemplate, context));
+                    break;
                 case "review":
                     tags = Collections.singletonList(
                             new MustacheSettings.Tags("review", "turquoise"));
