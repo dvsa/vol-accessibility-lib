@@ -59,7 +59,7 @@ public class AXEScanner {
 
     public AXEScanner() {
         if (getTags().get(0) == null) {
-            setTags(Arrays.asList("wcag2a", "wcag412", "wcag143", "wcag2aa", "cat.**"));
+            setTags(Arrays.asList("wcag143", "wcag2aa", "cat.**"));
         } else {
             setTags(tags);
         }

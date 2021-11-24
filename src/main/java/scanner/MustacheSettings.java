@@ -1,7 +1,5 @@
 package scanner;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
