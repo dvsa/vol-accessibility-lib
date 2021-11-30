@@ -3,6 +3,8 @@ package scanner;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.URI;
@@ -18,8 +20,11 @@ public class ReportGenerator {
     Set<String> uniqueImpactString = new HashSet<>();
     MustacheFactory mf = new DefaultMustacheFactory();
 
+    private static final Logger LOGGER = LogManager.getLogger(AXEScanner.class);
     private static final String userDirectory = System.getProperty("user.dir");
 
+    private static final File urls = new File(userDirectory.concat("/target/urls.txt"));
+    private static final File totalComp = new File(userDirectory.concat("/target/totalComp.txt"));
     private static final File temp = new File(userDirectory.concat("/target/urlScanned.txt"));
     private static final File tempDetailsFile = new File(userDirectory.concat("/target/details.html"));
     private static final File tempCompleteDetailsFile = new File(userDirectory.concat("/target/tempCompleteDetails.html"));
@@ -87,7 +92,7 @@ public class ReportGenerator {
     public void violationsReportSectionHTML(String scanURL, AXEScanner scanner) throws IOException {
         StringBuilder tags = new StringBuilder();
         createImpactHTML(scanner);
-        for(String impact : uniqueImpactString){
+        for (String impact : uniqueImpactString) {
             tags.append(impact);
         }
         Mustache violationsTemplate = mf.compile("violations.mustache");
@@ -126,8 +131,7 @@ public class ReportGenerator {
             tempDetailsWriter.append(sectionComp);
             tempDetailsWriter.flush();
             tempDetailsWriter.close();
-        } catch (
-                Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -138,11 +142,8 @@ public class ReportGenerator {
 
     }
 
-    public void createReport(AXEScanner scanner) throws IOException, URISyntaxException {
+    public void createReport(AXEScanner scanner) {
         try {
-            File urls = new File(userDirectory.concat("/target/urls.txt"));
-            File totalComp = new File(userDirectory.concat("/target/totalComp.txt"));
-
             String urlList = readLinesAsInputStream(ReportGenerator.class.getClassLoader().getResourceAsStream("index.html"));
             String urlRegex = "urlList";
             String index = urlList.replace(urlRegex, readLines(userDirectory.concat("/target/urlScanned.txt")));
@@ -150,7 +151,6 @@ public class ReportGenerator {
             BufferedWriter writer = new BufferedWriter(new FileWriter(urls, false));
             writer.append(index);
             writer.flush();
-            temp.delete();
 
             String totalCompPercent = readLines(userDirectory.concat("/target/urls.txt"));
             String percentRegex = "totalComp";
@@ -189,14 +189,18 @@ public class ReportGenerator {
     }
 
     private void copyFromJar(String source, final Path target) throws URISyntaxException, IOException {
-        URI resource = getClass().getResource("").toURI();
-        FileSystem fileSystem = FileSystems.newFileSystem(
-                resource,
-                Collections.<String, String>emptyMap()
-        );
+        FileSystem fileSystem;
+        URI resource = Objects.requireNonNull(getClass().getResource("")).toURI();
+        try {
+           fileSystem = FileSystems.getFileSystem(resource);
+           if(fileSystem == null){
+               LOGGER.info("File does not exist");
+           }
+        } catch (FileSystemNotFoundException | FileSystemAlreadyExistsException e) {
+            fileSystem = FileSystems.newFileSystem(resource, Collections.<String, String>emptyMap());
+        }
 
         final Path jarPath = fileSystem.getPath(source);
-
         Files.walkFileTree(jarPath, new SimpleFileVisitor<Path>() {
 
             @Override
@@ -211,7 +215,6 @@ public class ReportGenerator {
                 Files.copy(file, target.resolve(jarPath.relativize(file).toString()), StandardCopyOption.REPLACE_EXISTING);
                 return FileVisitResult.CONTINUE;
             }
-
         });
     }
 
