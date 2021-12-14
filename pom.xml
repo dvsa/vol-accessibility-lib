@@ -6,20 +6,20 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>accessibility-library</artifactId>
-    <version>2.2</version>
+    <version>2.3</version>
 
     <properties>
         <nexus.releases>https://nexus.olcs.dev-dvsacloud.uk/repository/maven-releases</nexus.releases>
         <nexus.snapshots>https://nexus.olcs.dev-dvsacloud.uk/repository/maven-snapshots</nexus.snapshots>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.1</maven.compiler.version>
-        <active-support.version>1.4.4.7</active-support.version>
+        <active-support.version>1.6.1</active-support.version>
         <axe-selenium-version>4.1.1</axe-selenium-version>
         <rules.scan>${rules}</rules.scan>
         <standards.scan>${standard}</standards.scan>
         <mustache.version>0.9.6</mustache.version>
-        <slf4j.version>2.12.1</slf4j.version>
-        <slf4j-log4j12.version>2.12.1</slf4j-log4j12.version>
+        <slf4j.version>2.15.0</slf4j.version>
+        <slf4j-log4j12.version>2.15.0</slf4j-log4j12.version>
     </properties>
 
     <repositories>
