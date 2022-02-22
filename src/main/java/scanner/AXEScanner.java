@@ -17,8 +17,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class AXEScanner {
 
     public String axeFindings;
@@ -66,7 +64,7 @@ public class AXEScanner {
         }
     }
 
-    public void scan() throws IOException, IllegalBrowserException {
+    public void scan(boolean addReviewsToReport) throws IOException, IllegalBrowserException {
         AxeRunOptions runOptions = new AxeRunOptions();
         runOptions.setXPath(true);
 
@@ -93,7 +91,7 @@ public class AXEScanner {
                     AxeReporter.getReadableAxeResults("VIOLATIONS", Browser.navigate(), ruleList);
                     axeFindings = AxeReporter.getAxeResultString();
                     impact.add(rule.getImpact());
-                } else {
+                } else if (addReviewsToReport) {
                     rule.setImpact("review");
                     impact.add("review");
                     AxeReporter.getReadableAxeResults("PLEASE REVIEW", Browser.navigate(), ruleList);
