@@ -1,6 +1,8 @@
 # Description
 
-Accessibility scanner library
+Accessibility scanner library. This is a wrapper for the selenium axe framework.
+Once the scan has completed and any issues found, there will be a REPORT folder created in the project 
+that consumes this library.
 
 # Prerequisites
 - Maven
