@@ -2,8 +2,9 @@ package scanner;
 
 import activesupport.IllegalBrowserException;
 import activesupport.driver.Browser;
-import com.deque.html.axecore.axeargs.AxeRuleOptions;
-import com.deque.html.axecore.axeargs.AxeRunOptions;
+import com.deque.html.axecore.args.AxeRuleOptions;
+import com.deque.html.axecore.args.AxeRunOptions;
+import com.deque.html.axecore.args.AxeRunOptions;
 import com.deque.html.axecore.results.Results;
 import com.deque.html.axecore.results.Rule;
 import com.deque.html.axecore.selenium.AxeBuilder;
