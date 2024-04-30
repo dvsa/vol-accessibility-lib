@@ -12,7 +12,7 @@
         <github.url>https://maven.pkg.github.com/dvsa/vol-app-security-lib</github.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.1</maven.compiler.version>
-        <active-support.version>2.0.1.7</active-support.version>
+        <active-support.version>2.0.1.9</active-support.version>
         <axe-selenium-version>4.8.0</axe-selenium-version>
         <!--suppress UnresolvedMavenProperty -->
         <rules.scan>${rules}</rules.scan>
