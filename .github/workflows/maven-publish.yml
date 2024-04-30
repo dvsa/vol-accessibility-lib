@@ -32,5 +32,6 @@ jobs:
 
       - name: Publish to GitHub Packages Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-        env:
-          GITHUB_TOKEN_REF: ${{ secrets.DVSA_AWS_REGION }}
+              env:
+          GITHUB_USER_REF: ${{ secrets.GH_PACKAGE_REPO_USERNAME }}
+          GITHUB_TOKEN_REF: ${{ secrets.GH_PACKAGE_REPO_PASSWORD }}
