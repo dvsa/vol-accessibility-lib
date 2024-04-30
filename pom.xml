@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <github.url>https://maven.pkg.github.com/dvsa/vol-app-security-lib</github.url>
+        <github.url>https://maven.pkg.github.com/dvsa/vol-accessibility-lib</github.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <active-support.version>2.0.1.9</active-support.version>
