@@ -7,6 +7,7 @@
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>accessibility-library</artifactId>
     <version>2.9</version>
+    <packaging>pom</packaging>
 
     <properties>
         <github.url>https://maven.pkg.github.com/dvsa/vol-app-security-lib</github.url>
