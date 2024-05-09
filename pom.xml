@@ -34,6 +34,27 @@
         <org.json.version>20231013</org.json.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>github-vol-active-support</id>
+                    <name>GitHub dvsa Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/dvsa/vol-active-support</url>
+                    <snapshots><enabled>true</enabled></snapshots>
+                    <releases><enabled>true</enabled></releases>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -81,4 +102,12 @@
             <version>${software.amazon.ion.version}</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub dvsa Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/dvsa/vol-accessibility-lib</url>
+        </repository>
+    </distributionManagement>
 </project>
