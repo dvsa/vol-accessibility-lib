@@ -20,8 +20,8 @@ ignore:
   SNYK-JAVA-DOM4J-2812975:
     - '*':
         reason: no fix
-        expires: 2024-06-08T15:06:55.574Z
-        created: 2024-05-09T15:06:55.579Z
+        expires: 2024-06-08T17:23:14.009Z
+        created: 2024-05-09T17:23:14.014Z
   SNYK-JAVA-ORGSELENIUMHQSELENIUM-6062318:
     - '*':
         reason: None Given
@@ -32,4 +32,14 @@ ignore:
         reason: None Given
         expires: 2024-06-08T15:46:16.314Z
         created: 2024-05-09T15:46:16.322Z
+  SNYK-JAVA-ORGYAML-6056527:
+    - '*':
+        reason: no fix
+        expires: 2024-06-08T17:23:28.159Z
+        created: 2024-05-09T17:23:28.165Z
+  SNYK-JAVA-ORGYAML-2806360:
+    - '*':
+        reason: no fix
+        expires: 2024-06-08T17:24:05.946Z
+        created: 2024-05-09T17:24:05.953Z
 patch: {}
