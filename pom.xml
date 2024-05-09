@@ -114,7 +114,7 @@
         <dependency>
             <groupId>com.deque.html.axe-core</groupId>
             <artifactId>selenium</artifactId>
-            <version>4.6.0</version>
+            <version>4.9.0</version>
         </dependency>
     </dependencies>
 
