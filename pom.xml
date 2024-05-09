@@ -11,8 +11,8 @@
     <properties>
         <nexus.releases>https://nexus.olcs.dev-dvsacloud.uk/repository/maven-releases</nexus.releases>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.11</maven.compiler.source>
+        <maven.compiler.target>1.11</maven.compiler.target>
         <active-support.version>2.2.0</active-support.version>
         <axe-selenium-version>3.0</axe-selenium-version>
         <!--suppress UnresolvedMavenProperty -->
