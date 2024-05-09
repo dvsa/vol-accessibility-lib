@@ -13,6 +13,6 @@ jobs:
       steps:
        - uses: actions/checkout@v4
         
-       - run: mvn -B -P github package
+       - run: mvn -B package
 
     
