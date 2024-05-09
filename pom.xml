@@ -33,6 +33,7 @@
         <org.yaml.snakeyaml.version>1.31</org.yaml.snakeyaml.version>
         <software.amazon.ion.version>1.0.3</software.amazon.ion.version>
         <org.json.version>20231013</org.json.version>
+        <java.version>11</java.version>
     </properties>
     <build>
         <plugins>
