@@ -89,7 +89,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.seleniumhq.selenium</groupId>
-                    <artifactId>selenenium-java</artifactId>
+                    <artifactId>selenium-java</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
