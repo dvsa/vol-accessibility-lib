@@ -119,7 +119,6 @@
         </dependency>
     </dependencies>
 
-
     <distributionManagement>
         <repository>
             <id>github</id>
