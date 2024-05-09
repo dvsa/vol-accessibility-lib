@@ -32,7 +32,11 @@ jobs:
           with:
             distribution: "corretto"
             java-version: "11"
-            cache: maven    
+            cache: maven  
+        - uses: whelk-io/maven-settings-xml-action@v22
+          with:
+            servers: '[{ "id":"github-vol-active-support", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
+    
         - run: snyk test --severity-threshold=${{ inputs.severity-threshold || 'high' }} -- -P github 
           env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
