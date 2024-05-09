@@ -12,4 +12,9 @@ ignore:
         reason: None Given
         expires: 2024-06-08T13:16:12.796Z
         created: 2024-05-09T13:16:12.804Z
+  SNYK-JAVA-SOFTWAREAMAZONION-6153869:
+    - '*':
+        reason: None Given
+        expires: 2024-06-08T13:27:49.964Z
+        created: 2024-05-09T13:27:49.971Z
 patch: {}
