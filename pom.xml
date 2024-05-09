@@ -21,6 +21,7 @@
         <mustache.version>0.9.11</mustache.version>
         <slf4j.version>2.22.0</slf4j.version>
         <slf4j-log4j12.version>2.22.0</slf4j-log4j12.version>
+        <github.url>https://maven.pkg.github.com/dvsa/vol-accessibility-lib</github.url>
     </properties>
 
     <repositories>
@@ -90,12 +91,11 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-    <!--  Nexus Configuration  -->
     <distributionManagement>
         <repository>
-            <id>maven-releases</id>
-            <url>${nexus.releases}</url>
+            <id>github</id>
+            <name>GitHub dvsa Apache Maven Packages</name>
+            <url>${github.url}</url>
         </repository>
     </distributionManagement>
 </project>
