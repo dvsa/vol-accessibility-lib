@@ -22,94 +22,62 @@
         <slf4j.version>2.22.0</slf4j.version>
         <slf4j-log4j12.version>2.22.0</slf4j-log4j12.version>
         <github.url>https://maven.pkg.github.com/dvsa/vol-accessibility-lib</github.url>
+        <commons-beanutils.version>1.9.2</commons-beanutils.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <org.apache.commons.commons-text.version>1.10.0</org.apache.commons.commons-text.version>
+        <org.apache.commons.commons-compress.version>1.26.0</org.apache.commons.commons-compress.version>
+        <org.json.version>20180130</org.json.version>
+        <org.postgresql.version>42.3.3</org.postgresql.version>
+        <org.yaml.snakeyaml.version>1.31</org.yaml.snakeyaml.version>
+        <software.amazon.ion.version>1.0.3</software.amazon.ion.version>
     </properties>
-
-    <profiles>
-        <profile>
-            <id>github</id>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-                <repository>
-                    <id>github-vol-active-support</id>
-                    <name>GitHub dvsa Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/dvsa/vol-active-support</url>
-                    <snapshots><enabled>true</enabled></snapshots>
-                    <releases><enabled>true</enabled></releases>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
-
-    <build>
-        <extensions>
-            <extension>
-                <groupId>org.springframework.build</groupId>
-                <artifactId>aws-maven</artifactId>
-                <version>5.0.0.RELEASE</version>
-            </extension>
-        </extensions>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${slf4j-log4j12.version}</version>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.dvsa.testing.lib</groupId>
-            <artifactId>active-support</artifactId>
-            <version>${active-support.version}</version>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>${dom4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.deque.html.axe-core</groupId>
-            <artifactId>selenium</artifactId>
-            <version>${axe-selenium-version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium</groupId>
-                    <artifactId>selenium-java</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${org.apache.commons.commons-text.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.spullara.mustache.java</groupId>
-            <artifactId>compiler</artifactId>
-            <version>${mustache.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>${org.apache.commons.commons-compress.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.deque.html.axe-core</groupId>
-            <artifactId>selenium</artifactId>
-            <version>${axe-selenium-version}</version>
-            <scope>compile</scope>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${org.postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${org.yaml.snakeyaml.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.ion</groupId>
+            <artifactId>ion-java</artifactId>
+            <version>${software.amazon.ion.version}</version>
         </dependency>
     </dependencies>
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub dvsa Apache Maven Packages</name>
-            <url>${github.url}</url>
-        </repository>
-    </distributionManagement>
 </project>
