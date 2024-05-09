@@ -12,8 +12,8 @@
         <nexus.releases>https://nexus.olcs.dev-dvsacloud.uk/repository/maven-releases</nexus.releases>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.1</maven.compiler.version>
-        <active-support.version>2.0.1.10</active-support.version>
-        <axe-selenium-version>4.8.0</axe-selenium-version>
+        <active-support.version>2.2.0</active-support.version>
+        <axe-selenium-version>3.0</axe-selenium-version>
         <!--suppress UnresolvedMavenProperty -->
         <rules.scan>${rules}</rules.scan>
         <!--suppress UnresolvedMavenProperty -->
@@ -101,7 +101,23 @@
             <artifactId>ion-java</artifactId>
             <version>${software.amazon.ion.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>${mustache.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.deque.html.axe-core</groupId>
+            <artifactId>selenium</artifactId>
+            <version>4.6.0</version>
+        </dependency>
     </dependencies>
+
 
     <distributionManagement>
         <repository>
