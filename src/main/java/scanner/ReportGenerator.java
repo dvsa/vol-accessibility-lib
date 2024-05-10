@@ -126,7 +126,7 @@ public class ReportGenerator {
 
             String complianceSectionPercent = readLines(userDirectory.concat("/target/tempCompleteDetails.html"));
             String percentRegex = "sectionComp";
-            String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getNumberOfViolationsFoundPerPage())));
+            String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount(), estimateTotalPages(scanner.getTotalViolationsCount()))));
             BufferedWriter tempDetailsWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsWithPercentFile, true));
             tempDetailsWriter.append(sectionComp);
             tempDetailsWriter.flush();
@@ -154,8 +154,7 @@ public class ReportGenerator {
 
             String totalCompPercent = readLines(userDirectory.concat("/target/urls.txt"));
             String percentRegex = "totalComp";
-            String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount())));
-
+            String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount(), estimateTotalPages(scanner.getTotalViolationsCount()))));
             writer = new BufferedWriter(new FileWriter(totalComp, false));
             writer.append(totalCompPer);
             writer.flush();
@@ -192,10 +191,10 @@ public class ReportGenerator {
         FileSystem fileSystem;
         URI resource = Objects.requireNonNull(getClass().getResource("")).toURI();
         try {
-           fileSystem = FileSystems.getFileSystem(resource);
-           if(fileSystem == null){
-               LOGGER.info("File does not exist");
-           }
+            fileSystem = FileSystems.getFileSystem(resource);
+            if(fileSystem == null){
+                LOGGER.info("File does not exist");
+            }
         } catch (FileSystemNotFoundException | FileSystemAlreadyExistsException e) {
             fileSystem = FileSystems.newFileSystem(resource, Collections.<String, String>emptyMap());
         }
@@ -242,9 +241,14 @@ public class ReportGenerator {
         uniqueImpactString.add(content);
         return uniqueImpactString.toString();
     }
-
-    public int totalCompliancePercentage(int totalNumberOfViolation) {
-        int nonAccessiblePercentage = totalNumberOfViolation * 100 / 100;
-        return 100 - nonAccessiblePercentage;
+    public int totalCompliancePercentage(int totalNumberOfViolation, int totalNumberOfPages) {
+        if (totalNumberOfPages == 0) {
+            return 100;
+        }
+        int accessiblePages =  totalNumberOfPages - totalNumberOfViolation;
+        return (accessiblePages * 100) / totalNumberOfPages;
+    }
+    public int estimateTotalPages(int totalURLsScanned) {
+        return totalURLsScanned;
     }
 }
