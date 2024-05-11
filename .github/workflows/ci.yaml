@@ -10,9 +10,12 @@ jobs:
     secrets: inherit
    
   build-maven:      
-    name: build with Maven
-    uses: ./.github/workflows/maven.yaml
-    with:
+    - uses: whelk-io/maven-settings-xml-action@v22
+      with:
+        servers: '[{ "id":"github-vol-active-support", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
+  
+    - uses: ./.github/workflows/maven.yaml
+      with:
         maven-goal: package
     needs: security
 
