@@ -12,14 +12,11 @@ on:
 permissions:
   contents: read
 
-
 jobs:
     build:
       name: build
       runs-on: ubuntu-latest
       steps:
        - uses: actions/checkout@v4
-        
        - run: mvn -B -P github ${{ inputs.maven-goal}}
-
     
