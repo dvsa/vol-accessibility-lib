@@ -24,7 +24,7 @@ jobs:
         with:
           servers: '[{ "id":"github-vol-active-support", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
         
-      - uses: ./.github/workflows/maven.yaml
+      - uses: ../../.github/workflows/maven.yaml
         with:
           maven-goal: package
     
