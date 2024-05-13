@@ -18,9 +18,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
        - uses: actions/checkout@v4
-         with:
-          path: ${{ github.repository }}
-          fetch-depth: 0
        - uses: whelk-io/maven-settings-xml-action@v22
          with:
           servers: '[{ "id":"github-vol-active-support", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
