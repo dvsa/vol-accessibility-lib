@@ -18,5 +18,8 @@ jobs:
       runs-on: ubuntu-latest
       steps:
        - uses: actions/checkout@v4
+         with:
+          path: ${{ github.repository }}
+          fetch-depth: 0
        - run: mvn -B -P github ${{ inputs.maven-goal}}
     
