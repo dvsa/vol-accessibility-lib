@@ -41,11 +41,14 @@ jobs:
           distribution: 'corretto'
           cache: 'maven'
 
-      - name: Publish to GitHub Packages Apache Maven
-        uses: ./.github/workflows/maven.yaml
-        with:
-          maven-goal: deploy
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  push:
+      if: ${{needs.release-please.outputs.release_created}}
+      name: Publish to GitHub Packages Apache Maven
+      uses: ./.github/workflows/maven.yaml
+      with:
+        maven-goal: deploy
+      needs: release-please
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             
   
