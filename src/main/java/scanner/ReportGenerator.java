@@ -126,7 +126,7 @@ public class ReportGenerator {
 
             String complianceSectionPercent = readLines(userDirectory.concat("/target/tempCompleteDetails.html"));
             String percentRegex = "sectionComp";
-            String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount(), estimateTotalPages(scanner.getTotalViolationsCount()))));
+            String sectionComp = complianceSectionPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getNumberOfViolationsFoundPerPage(), estimateTotalPages(scanner.getNumberOfViolationsFoundPerPage()))));
             BufferedWriter tempDetailsWriter = new BufferedWriter(new FileWriter(tempCompleteDetailsWithPercentFile, true));
             tempDetailsWriter.append(sectionComp);
             tempDetailsWriter.flush();
@@ -154,7 +154,7 @@ public class ReportGenerator {
 
             String totalCompPercent = readLines(userDirectory.concat("/target/urls.txt"));
             String percentRegex = "totalComp";
-            String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getTotalViolationsCount(), estimateTotalPages(scanner.getTotalViolationsCount()))));
+            String totalCompPer = totalCompPercent.replace(percentRegex, Integer.toString(totalCompliancePercentage(scanner.getNumberOfViolationsFoundPerPage(), estimateTotalPages(scanner.getTotalViolationsCount()))));
             writer = new BufferedWriter(new FileWriter(totalComp, false));
             writer.append(totalCompPer);
             writer.flush();
