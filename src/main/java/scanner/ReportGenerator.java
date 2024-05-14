@@ -191,10 +191,10 @@ public class ReportGenerator {
         FileSystem fileSystem;
         URI resource = Objects.requireNonNull(getClass().getResource("")).toURI();
         try {
-            fileSystem = FileSystems.getFileSystem(resource);
-            if(fileSystem == null){
-                LOGGER.info("File does not exist");
-            }
+           fileSystem = FileSystems.getFileSystem(resource);
+           if(fileSystem == null){
+               LOGGER.info("File does not exist");
+           }
         } catch (FileSystemNotFoundException | FileSystemAlreadyExistsException e) {
             fileSystem = FileSystems.newFileSystem(resource, Collections.<String, String>emptyMap());
         }
