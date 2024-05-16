@@ -62,9 +62,9 @@
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>github-vol-active-support</id>
+                    <id>dvsa-github-packages</id>
                     <name>GitHub dvsa Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/dvsa/vol-active-support</url>
+                    <url>https://maven.pkg.github.com/dvsa/*</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
