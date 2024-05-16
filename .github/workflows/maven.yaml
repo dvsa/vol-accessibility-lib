@@ -20,7 +20,7 @@ jobs:
        - uses: actions/checkout@v4
        - uses: whelk-io/maven-settings-xml-action@v22
          with:
-          servers: '[{ "id":"github-vol-active-support", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
+          servers: '[{ "id":"dvsa-github-packages", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
       
        - run: mvn -B -P github ${{ inputs.maven-goal}}
     
