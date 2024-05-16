@@ -231,8 +231,7 @@ public class ReportGenerator {
     private static String readLines(String filePath) {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
-            final StringBuilder finalContentBuilder = contentBuilder;
-            stream.forEach(s -> finalContentBuilder.append(s).append("\n"));
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
         } catch (IOException e) {
             e.printStackTrace();
         }
