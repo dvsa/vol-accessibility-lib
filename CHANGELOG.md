@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.1](https://github.com/dvsa/vol-accessibility-lib/compare/v1.0.0...v1.0.1) (2024-05-17)
+
+
+### Bug Fixes
+
+* env ([0d09507](https://github.com/dvsa/vol-accessibility-lib/commit/0d0950718a2015094e80d1e6923a0fc10264c7e9))
+* Update cd.yaml ([9a4f79f](https://github.com/dvsa/vol-accessibility-lib/commit/9a4f79ffbc9cc2f315a2c8c2cbc1334827157b13))
+* Update cd.yaml ([cae6e1f](https://github.com/dvsa/vol-accessibility-lib/commit/cae6e1f8d50fac9e6af3ecc6cb898fc5fdf9ab1d))
+
 ## 1.0.0 (2024-05-17)
 
 
