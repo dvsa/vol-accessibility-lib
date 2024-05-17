@@ -48,7 +48,7 @@ jobs:
       with:
         maven-goal: deploy
       needs: release-please
-    
-        
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             
   
