@@ -6,6 +6,7 @@ that consumes this library.
 
 # Prerequisites
 - Maven
+- Java 11
 
 # Rules
 
@@ -21,4 +22,3 @@ Add the following Maven dependency to your project's `pom.xml` file:
     <version>[insert latest version of package]</version>
 </dependency>
 ```
-
