@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.10.3](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.2...v2.10.3) (2024-05-18)
+
+
+### Bug Fixes
+
+* added extra server setting ([160cd1e](https://github.com/dvsa/vol-accessibility-lib/commit/160cd1e8dd11dab81660c3376a3cbc1e9b80b6ad))
+
+
+### Miscellaneous Chores
+
+* release 2.10.3 ([0d7c01b](https://github.com/dvsa/vol-accessibility-lib/commit/0d7c01b2b7fd59dc66e5afe14a1d07798c29b3e5))
+
 ## [2.10.2](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.1...v2.10.2) (2024-05-18)
 
 
