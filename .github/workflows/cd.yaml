@@ -48,9 +48,7 @@ jobs:
    
       name: Publish to GitHub Packages Apache Maven
       uses: ./.github/workflows/maven.yaml
+      secrets: inherit
       with:
         maven-goal: deploy
-
       needs: release-please
-      
-  
