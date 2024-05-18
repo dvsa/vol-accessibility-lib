@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.1](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.0...v2.10.1) (2024-05-18)
+
+
+### Bug Fixes
+
+* added maven debugging ([f6ece41](https://github.com/dvsa/vol-accessibility-lib/commit/f6ece41a10916407a9fb021edb076f7f7d8b804e))
+
 ## [2.10.0](https://github.com/dvsa/vol-accessibility-lib/compare/v1.1.0...v2.10.0) (2024-05-18)
 
 
