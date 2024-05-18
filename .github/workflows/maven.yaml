@@ -8,10 +8,6 @@ on:
         required: true
         default: 'package'
         type: string
-    secrets:
-      GITHUB_TOKEN:
-        description: 'GitHub token'
-        required: true
   
 permissions:
   contents: read
