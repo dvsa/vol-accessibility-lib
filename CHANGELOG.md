@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.10.2](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.1...v2.10.2) (2024-05-18)
+
+
+### Bug Fixes
+
+* changed workflow permissions ([cd776d5](https://github.com/dvsa/vol-accessibility-lib/commit/cd776d5a121fe32d76561e74a42323135f9e857d))
+
+
+### Miscellaneous Chores
+
+* release 2.10.2 ([bc9a87f](https://github.com/dvsa/vol-accessibility-lib/commit/bc9a87f49ce50c600930ac2e94c638cc8b7ce197))
+
 ## [2.10.1](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.0...v2.10.1) (2024-05-18)
 
 
