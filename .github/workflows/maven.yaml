@@ -26,5 +26,5 @@ jobs:
          with:
           servers: '[{ "id":"dvsa-github-packages", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } },{ "id":"github", "configuration": { "httpHeaders": { "property": { "name":"Authorization", "value":"Bearer ${{ secrets.GITHUB_TOKEN }}"} } } } ]'
       
-       - run: mvn -B -P github -X ${{ inputs.maven-goal}}
+       - run: mvn -B -P github ${{ inputs.maven-goal}}
     
