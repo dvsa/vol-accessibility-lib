@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.10.4](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.3...v2.10.4) (2024-05-18)
+
+
+### Miscellaneous Chores
+
+* release 2.10.4 ([99e7778](https://github.com/dvsa/vol-accessibility-lib/commit/99e7778de47a5c34503bda86b259142f3dd5c787))
+* release 2.10.4 ([a3fc08f](https://github.com/dvsa/vol-accessibility-lib/commit/a3fc08f8a4a5f125cda336d8b9cdfc0fc7d7a7bd))
+
 ## [2.10.3](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.2...v2.10.3) (2024-05-18)
 
 
