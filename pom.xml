@@ -139,5 +139,10 @@
             <artifactId>selenium</artifactId>
             <version>4.9.0</version>
         </dependency>
+        <dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk18on</artifactId>
+    <version>1.78</version>
+</dependency>
     </dependencies>
 </project>
