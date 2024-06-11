@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.11.0](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.4...v2.11.0) (2024-06-11)
+
+
+### Features
+
+* Update .snyk ([2e181e7](https://github.com/dvsa/vol-accessibility-lib/commit/2e181e77ca1cd36e12142f90e9f5960bc545da6b))
+* Update pom.xml ([dc82de8](https://github.com/dvsa/vol-accessibility-lib/commit/dc82de85006d37d1b2704237f460930ddca7da5e))
+
 ## [2.10.4](https://github.com/dvsa/vol-accessibility-lib/compare/v2.10.3...v2.10.4) (2024-05-18)
 
 
