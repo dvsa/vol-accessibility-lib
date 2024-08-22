@@ -20,6 +20,6 @@ ignore:
   SNYK-JAVA-DOM4J-2812975:
     - '*':
         reason: no fix
-        expires: 2024-07-08T17:23:14.009Z
+        expires: 2024-12-08T17:23:14.009Z
         created: 2024-05-09T17:23:14.014Z
 patch: {}
