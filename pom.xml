@@ -27,7 +27,7 @@
         <org.apache.commons.commons-compress.version>1.26.0</org.apache.commons.commons-compress.version>
         <org.json.version>20180130</org.json.version>
         <org.postgresql.version>42.3.9</org.postgresql.version>
-        <org.yaml.snakeyaml.version>1.31</org.yaml.snakeyaml.version>
+        <org.yaml.snakeyaml.version>2.0</org.yaml.snakeyaml.version>
         <software.amazon.ion.version>1.0.3</software.amazon.ion.version>
         <org.json.version>20231013</org.json.version>
         <java.version>11</java.version>
