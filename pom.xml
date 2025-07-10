@@ -10,7 +10,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <active-support.version>2.4.1</active-support.version>
+        <active-support.version>2.7.20</active-support.version>
         <axe-selenium-version>4.9.1</axe-selenium-version>
         <mustache.version>0.9.11</mustache.version>
         <slf4j.version>2.0.9</slf4j.version>
