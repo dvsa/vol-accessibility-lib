@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.dvsa.testing.lib</groupId>
@@ -20,9 +22,9 @@
         <commons-collections.version>4.4</commons-collections.version>
         <dom4j.version>2.1.4</dom4j.version>
         <org.apache.commons.commons-text.version>1.10.0</org.apache.commons.commons-text.version>
-        <org.apache.commons.commons-compress.version>1.23.0</org.apache.commons.commons-compress.version>
+        <org.apache.commons.commons-compress.version>1.27.1</org.apache.commons.commons-compress.version>
         <org.json.version>20231013</org.json.version>
-        <org.postgresql.version>42.6.0</org.postgresql.version>
+        <org.postgresql.version>42.7.7</org.postgresql.version>
         <org.yaml.snakeyaml.version>2.1</org.yaml.snakeyaml.version>
         <software.amazon.ion.version>1.11.0</software.amazon.ion.version>
         <java.version>11</java.version>
