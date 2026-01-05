@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.11.2](https://github.com/dvsa/vol-accessibility-lib/compare/v2.11.1...v2.11.2) (2026-01-05)
+
+
+### Bug Fixes
+
+* organise pom, update dependencies ([c84df59](https://github.com/dvsa/vol-accessibility-lib/commit/c84df59c4e317da359c0e3b7f63bc3bbdfcc8a1e))
+* organise pom, update dependencies ([366117b](https://github.com/dvsa/vol-accessibility-lib/commit/366117bcddccc253bad391bb277fa69893c57525))
+
 ## [2.11.1](https://github.com/dvsa/vol-accessibility-lib/compare/v2.11.0...v2.11.1) (2025-07-10)
 
 
