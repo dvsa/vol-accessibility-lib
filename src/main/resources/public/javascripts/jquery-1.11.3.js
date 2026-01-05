@@ -5598,7 +5598,12 @@ jQuery.extend({
 					tag = (rtagName.exec( elem ) || [ "", "" ])[ 1 ].toLowerCase();
 					wrap = wrapMap[ tag ] || wrapMap._default;
 
-					tmp.innerHTML = wrap[1] + elem.replace( rxhtmlTag, "<$1></$2>" ) + wrap[2];
+					// Use DOM parsing to normalize self-closing tags instead of regex replacement
+					var tmpWrap = context.createElement("div");
+					tmpWrap.innerHTML = elem;
+					var normalized = tmpWrap.innerHTML;
+
+					tmp.innerHTML = wrap[1] + normalized + wrap[2];
 
 					// Descend through wrappers to the right content
 					j = wrap[0];
