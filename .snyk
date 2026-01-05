@@ -1,4 +1,29 @@
-# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.25.0
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  # License Issues - Test Framework Dependencies
+  snyk:lic:maven:org.dbunit:dbunit:LGPL-2.1:
+    - '*':
+        reason: Test framework dependency, LGPL-2.1 acceptable for test-only usage
+        expires: 2026-12-31T00:00:00.000Z
+        created: 2026-01-05T00:00:00.000Z
+  snyk:lic:maven:net.sf.jacob-project:jacob:LGPL-2.1:
+    - '*':
+        reason: Windows COM bridge for test automation, LGPL-2.1 acceptable
+        expires: 2026-12-31T00:00:00.000Z
+        created: 2026-01-05T00:00:00.000Z
+  snyk:lic:maven:de.openkeyword:autoit:GPL-3.0:
+    - '*':
+        reason: Internal test tooling only, GPL-3.0 acceptable for non-distributed use
+        expires: 2026-12-31T00:00:00.000Z
+        created: 2026-01-05T00:00:00.000Z
+  snyk:lic:maven:com.deque.html.axe-core:selenium:MPL-2.0:
+    - '*':
+        reason: Accessibility testing library, MPL-2.0 is business-friendly
+        expires: 2026-12-31T00:00:00.000Z
+        created: 2026-01-05T00:00:00.000Z
+  snyk:lic:maven:com.deque.html.axe-core:dequeutilites:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of axe-core, MPL-2.0 is business-friendly
+        expires: 2026-12-31T00:00:00.000Z
+        created: 2026-01-05T00:00:00.000Z
+patch: {}
