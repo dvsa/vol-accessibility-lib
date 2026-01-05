@@ -2,34 +2,73 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ========================================== -->
+    <!-- Project Coordinates                        -->
+    <!-- ========================================== -->
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>accessibility-library</artifactId>
     <version>2.11.2-SNAPSHOT</version>
 
+    <!-- ========================================== -->
+    <!-- Properties                                 -->
+    <!-- ========================================== -->
     <properties>
+        <!-- Build Configuration -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <active-support.version>2.7.20</active-support.version>
-        <axe-selenium-version>4.9.1</axe-selenium-version>
+        <java.version>11</java.version>
+
+        <!-- DVSA Internal Libraries -->
+        <active-support.version>2.11.2</active-support.version>
+
+        <!-- Accessibility Testing -->
+        <axe-selenium-version>4.10.1</axe-selenium-version>
+
+        <!-- Template Engine -->
         <mustache.version>0.9.11</mustache.version>
+
+        <!-- WebDriver Management -->
+        <webdrivermanager.version>6.1.0</webdrivermanager.version>
+
+        <!-- Logging -->
         <slf4j.version>2.0.9</slf4j.version>
-        <slf4j-log4j12.version>2.25.0</slf4j-log4j12.version>
-        <github.url>https://maven.pkg.github.com/dvsa/vol-accessibility-lib</github.url>
+        <slf4j-log4j12.version>2.25.3</slf4j-log4j12.version>
+
+        <!-- Apache Commons -->
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-collections.version>4.4</commons-collections.version>
-        <dom4j.version>2.1.4</dom4j.version>
-        <org.apache.commons.commons-text.version>1.10.0</org.apache.commons.commons-text.version>
+        <org.apache.commons.commons-text.version>1.12.0</org.apache.commons.commons-text.version>
         <org.apache.commons.commons-compress.version>1.27.1</org.apache.commons.commons-compress.version>
-        <org.json.version>20231013</org.json.version>
+
+        <!-- XML Processing -->
+        <dom4j.version>2.1.4</dom4j.version>
+
+        <!-- JSON Processing -->
+        <org.json.version>20240303</org.json.version>
+
+        <!-- Database -->
         <org.postgresql.version>42.7.7</org.postgresql.version>
+
+        <!-- YAML Processing -->
         <org.yaml.snakeyaml.version>2.1</org.yaml.snakeyaml.version>
+
+        <!-- Amazon Ion -->
         <software.amazon.ion.version>1.11.0</software.amazon.ion.version>
-        <java.version>11</java.version>
+
+        <!-- Security/Cryptography -->
+        <bouncycastle.version>1.79</bouncycastle.version>
+
+        <!-- Repository Configuration -->
+        <github.url>https://maven.pkg.github.com/dvsa/vol-accessibility-lib</github.url>
     </properties>
 
+    <!-- ========================================== -->
+    <!-- Build Configuration                        -->
+    <!-- ========================================== -->
     <build>
         <plugins>
+            <!-- Java Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -41,16 +80,26 @@
         </plugins>
     </build>
 
+    <!-- ========================================== -->
+    <!-- Profiles                                   -->
+    <!-- ========================================== -->
     <profiles>
         <profile>
             <id>github</id>
+
+            <!-- ================================== -->
+            <!-- Repositories                       -->
+            <!-- ================================== -->
             <repositories>
+                <!-- Maven Central Repository -->
                 <repository>
                     <id>central</id>
                     <url>https://repo1.maven.org/maven2</url>
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>true</enabled></snapshots>
                 </repository>
+
+                <!-- DVSA GitHub Packages -->
                 <repository>
                     <id>dvsa-github-packages</id>
                     <name>GitHub dvsa Apache Maven Packages</name>
@@ -59,6 +108,10 @@
                     <releases><enabled>true</enabled></releases>
                 </repository>
             </repositories>
+
+            <!-- ================================== -->
+            <!-- Distribution Management            -->
+            <!-- ================================== -->
             <distributionManagement>
                 <repository>
                     <id>github</id>
@@ -69,81 +122,175 @@
         </profile>
     </profiles>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-codec-http2</artifactId>
+                <version>4.1.125.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-codec-http</artifactId>
+                <version>4.1.129.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-common</artifactId>
+                <version>4.1.129.Final</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ========================================== -->
+    <!-- Dependencies                               -->
+    <!-- ========================================== -->
     <dependencies>
+
+        <!-- ====================================== -->
+        <!-- DVSA Internal Libraries                -->
+        <!-- ====================================== -->
+
+
+        <!-- Active Support - DVSA Test Framework -->
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>active-support</artifactId>
             <version>${active-support.version}</version>
         </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons-beanutils.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>${commons-collections.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>${dom4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>${org.apache.commons.commons-text.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>${org.apache.commons.commons-compress.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${org.json.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${org.postgresql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${org.yaml.snakeyaml.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazon.ion</groupId>
-            <artifactId>ion-java</artifactId>
-            <version>${software.amazon.ion.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.spullara.mustache.java</groupId>
-            <artifactId>compiler</artifactId>
-            <version>${mustache.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>6.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${slf4j-log4j12.version}</version>
-        </dependency>
+
+        <!-- ====================================== -->
+        <!-- Accessibility Testing                  -->
+        <!-- ====================================== -->
+
+        <!-- Axe Core Selenium - Accessibility Testing -->
         <dependency>
             <groupId>com.deque.html.axe-core</groupId>
             <artifactId>selenium</artifactId>
             <version>${axe-selenium-version}</version>
         </dependency>
+
+        <!-- ====================================== -->
+        <!-- WebDriver Management                   -->
+        <!-- ====================================== -->
+
+        <!-- WebDriverManager - Browser Driver Management -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- ====================================== -->
+        <!-- Template Engine                        -->
+        <!-- ====================================== -->
+
+        <!-- Mustache Java - Template Processing -->
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>${mustache.version}</version>
+        </dependency>
+
+        <!-- ====================================== -->
+        <!-- Apache Commons                         -->
+        <!-- ====================================== -->
+
+        <!-- Commons BeanUtils - Bean Manipulation -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
+        </dependency>
+
+        <!-- Commons Collections4 - Collection Utilities -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+
+        <!-- Commons Text - Text Processing -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${org.apache.commons.commons-text.version}</version>
+        </dependency>
+
+        <!-- Commons Compress - Archive Processing -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>${org.apache.commons.commons-compress.version}</version>
+        </dependency>
+
+        <!-- ====================================== -->
+        <!-- Data Processing                        -->
+        <!-- ====================================== -->
+
+        <!-- DOM4J - XML Processing -->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>${dom4j.version}</version>
+        </dependency>
+
+        <!-- JSON - JSON Processing -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json.version}</version>
+        </dependency>
+
+        <!-- SnakeYAML - YAML Processing -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${org.yaml.snakeyaml.version}</version>
+        </dependency>
+
+        <!-- Amazon Ion - Ion Data Format -->
+        <dependency>
+            <groupId>com.amazon.ion</groupId>
+            <artifactId>ion-java</artifactId>
+            <version>${software.amazon.ion.version}</version>
+        </dependency>
+
+        <!-- ====================================== -->
+        <!-- Database                               -->
+        <!-- ====================================== -->
+
+        <!-- PostgreSQL JDBC Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${org.postgresql.version}</version>
+        </dependency>
+
+        <!-- ====================================== -->
+        <!-- Security & Cryptography                -->
+        <!-- ====================================== -->
+
+        <!-- Bouncy Castle - Cryptographic Provider -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk18on</artifactId>
-            <version>1.78</version>
+            <version>${bouncycastle.version}</version>
         </dependency>
+
+        <!-- ====================================== -->
+        <!-- Logging                                -->
+        <!-- ====================================== -->
+
+        <!-- Log4j Core - Logging Implementation -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+        </dependency>
+
+
+
     </dependencies>
+
 </project>
