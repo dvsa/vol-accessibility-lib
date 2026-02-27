@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.11.4](https://github.com/dvsa/vol-accessibility-lib/compare/v2.11.3...v2.11.4) (2026-02-27)
+
+
+### Bug Fixes
+
+* up deps ([bc90318](https://github.com/dvsa/vol-accessibility-lib/commit/bc90318791e2aa568bfde8cde4537a98f4dcf22c))
+* up deps ([5a12529](https://github.com/dvsa/vol-accessibility-lib/commit/5a125294f120e3f3646a5125e055e6e83430b2a2))
+
 ## [2.11.3](https://github.com/dvsa/vol-accessibility-lib/compare/v2.11.2...v2.11.3) (2026-01-15)
 
 
